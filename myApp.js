@@ -25,18 +25,16 @@ app.get('/json', function (req, res) {
   res.json({ "message": message });
 });
 
+function addCurrentTime(req, res, next) {
+  req.time = new Date().toString();
+  next();
+}
 
+app.get('/now',
+  addCurrentTime,
+  function(req, res) {
+    res.json({ time: req.time });
+  },
+);
 
-
-
-
-
-
-
-
-
-
-
-
-
- module.exports = app;
+module.exports = app;
