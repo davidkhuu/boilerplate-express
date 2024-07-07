@@ -2,6 +2,14 @@ require('dotenv').config();
 let express = require('express');
 let app = express();
 
+function simpleLogger(req, res, next) {
+  const { method, path, ip } = req;
+  console.log(`${method} ${path} - ${ip}`);
+  next();
+}
+
+app.use(simpleLogger);
+
 app.get('/', function (req, res) {
   const absolutePath = __dirname + '/views/index.html';
   res.sendFile(absolutePath);
@@ -16,13 +24,6 @@ app.get('/json', function (req, res) {
   }
   res.json({ "message": message });
 });
-
-
-
-
-
-
-
 
 
 
