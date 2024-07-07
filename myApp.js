@@ -1,6 +1,7 @@
 require('dotenv').config();
 let express = require('express');
 let app = express();
+let bodyParser = require('body-parser');
 
 function simpleLogger(req, res, next) {
   const { method, path, ip } = req;
@@ -8,6 +9,7 @@ function simpleLogger(req, res, next) {
   next();
 }
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(simpleLogger);
 
 app.get('/', function (req, res) {
